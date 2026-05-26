@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Notebook\\OneDrive\\Desktop\\LojinhaDevoNada\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{87FE2253-2C57-6D72-6B0C-71152EF0ABDF}|LojinhaDevoNada\\LojinhaDevoNada.csproj|c:\\users\\notebook\\onedrive\\desktop\\lojinhadevonada\\lojinhadevonada\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87FE2253-2C57-6D72-6B0C-71152EF0ABDF}|LojinhaDevoNada\\LojinhaDevoNada.csproj|solutionrelative:lojinhadevonada\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87FE2253-2C57-6D72-6B0C-71152EF0ABDF}|LojinhaDevoNada\\LojinhaDevoNada.csproj|c:\\users\\notebook\\onedrive\\desktop\\lojinhadevonada\\lojinhadevonada\\lojinhadevonada.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{87FE2253-2C57-6D72-6B0C-71152EF0ABDF}|LojinhaDevoNada\\LojinhaDevoNada.csproj|solutionrelative:lojinhadevonada\\lojinhadevonada.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Notebook\\OneDrive\\Desktop\\LojinhaDevoNada\\LojinhaDevoNada\\Program.cs",
+              "RelativeDocumentMoniker": "LojinhaDevoNada\\Program.cs",
+              "ToolTip": "C:\\Users\\Notebook\\OneDrive\\Desktop\\LojinhaDevoNada\\LojinhaDevoNada\\Program.cs",
+              "RelativeToolTip": "LojinhaDevoNada\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T23:52:21.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LojinhaDevoNada",
+              "DocumentMoniker": "C:\\Users\\Notebook\\OneDrive\\Desktop\\LojinhaDevoNada\\LojinhaDevoNada\\LojinhaDevoNada.csproj",
+              "RelativeDocumentMoniker": "LojinhaDevoNada\\LojinhaDevoNada.csproj",
+              "ToolTip": "C:\\Users\\Notebook\\OneDrive\\Desktop\\LojinhaDevoNada\\LojinhaDevoNada\\LojinhaDevoNada.csproj",
+              "RelativeToolTip": "LojinhaDevoNada\\LojinhaDevoNada.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-28T23:25:13.333Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
