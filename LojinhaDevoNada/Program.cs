@@ -18,8 +18,8 @@ namespace LojinhaDevoNada
                 "Host=localhost;" +
                 "Port=5432;" +
                 "Database=db_devonada;" +
-                "Username=postgres;" +
-                "Password=40028922"
+                "User Id=postgres;" +
+                "Password=1234"
             );
 
             var host = Host.CreateDefaultBuilder()
