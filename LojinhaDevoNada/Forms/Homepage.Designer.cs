@@ -43,6 +43,9 @@
             Email = new DataGridViewTextBoxColumn();
             Editar = new DataGridViewButtonColumn();
             Excluir = new DataGridViewButtonColumn();
+            lblPagina = new Label();
+            btnVoltar = new Button();
+            btnProximo = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)clientesBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)clientesBindingSource1).BeginInit();
@@ -107,23 +110,16 @@
             Pesquisa.TabIndex = 2;
             Pesquisa.TextChanged += Pesquisa_TextChanged;
             // 
-            // clientesBindingSource
-            // 
-            clientesBindingSource.DataSource = typeof(Models.Clientes);
-            // 
-            // clientesBindingSource1
-            // 
-            clientesBindingSource1.DataSource = typeof(Models.Clientes);
-            // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
             dataGridView1.BackgroundColor = Color.DarkOliveGreen;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Cpf, Email, Editar, Excluir });
             dataGridView1.GridColor = Color.DarkGreen;
             dataGridView1.Location = new Point(151, 63);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(644, 362);
+            dataGridView1.Size = new Size(644, 352);
             dataGridView1.TabIndex = 4;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -161,12 +157,51 @@
             Excluir.Text = "Excluir";
             Excluir.UseColumnTextForButtonValue = true;
             // 
+            // lblPagina
+            // 
+            lblPagina.FlatStyle = FlatStyle.Flat;
+            lblPagina.Font = new Font("Cambria", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPagina.Location = new Point(421, 427);
+            lblPagina.Name = "lblPagina";
+            lblPagina.Size = new Size(123, 14);
+            lblPagina.TabIndex = 5;
+            lblPagina.Text = "Página 1 de 1";
+            // 
+            // btnVoltar
+            // 
+            btnVoltar.BackColor = Color.WhiteSmoke;
+            btnVoltar.FlatStyle = FlatStyle.Flat;
+            btnVoltar.Font = new Font("Cambria", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnVoltar.Location = new Point(340, 422);
+            btnVoltar.Name = "btnVoltar";
+            btnVoltar.Size = new Size(75, 23);
+            btnVoltar.TabIndex = 6;
+            btnVoltar.Text = "Voltar";
+            btnVoltar.UseVisualStyleBackColor = false;
+            btnVoltar.Click += btnVoltar_Click;
+            // 
+            // btnProximo
+            // 
+            btnProximo.BackColor = Color.WhiteSmoke;
+            btnProximo.FlatStyle = FlatStyle.Flat;
+            btnProximo.Font = new Font("Cambria", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnProximo.Location = new Point(504, 422);
+            btnProximo.Name = "btnProximo";
+            btnProximo.Size = new Size(75, 23);
+            btnProximo.TabIndex = 7;
+            btnProximo.Text = "Próximo";
+            btnProximo.UseVisualStyleBackColor = false;
+            btnProximo.Click += btnProximo_Click;
+            // 
             // Homepage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkOliveGreen;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnProximo);
+            Controls.Add(btnVoltar);
+            Controls.Add(lblPagina);
             Controls.Add(dataGridView1);
             Controls.Add(Pesquisa);
             Controls.Add(panel1);
@@ -196,5 +231,8 @@
         private DataGridViewTextBoxColumn Email;
         private DataGridViewButtonColumn Editar;
         private DataGridViewButtonColumn Excluir;
+        private Label lblPagina;
+        private Button btnVoltar;
+        private Button btnProximo;
     }
 }

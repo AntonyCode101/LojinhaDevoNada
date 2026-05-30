@@ -14,11 +14,14 @@ namespace LojinhaDevoNada.Forms
     {
         private readonly ClientesService _clientesService;
         private readonly DividasService _dividasService;
+        private int paginaAtual = 1;
+        private int tamanhoPagina = 10;
 
         private void Homepage_Load(object sender, EventArgs e)
         {
             CarregarClientes();
         }
+
 
 
         public Homepage(ClientesService clientesService, DividasService dividasService)
@@ -36,11 +39,25 @@ namespace LojinhaDevoNada.Forms
             CarregarClientes();
         }
 
+        private int TotalPaginas()
+        {
+            int totalClientes = _clientesService.TotalClientes();
+            return (int)Math.Ceiling(totalClientes / (double)tamanhoPagina);
+        }
+
+        private void AtualizarPaginas()
+        {
+            int totalPaginas = TotalPaginas();
+            lblPagina.Text = $"Página {paginaAtual} de {totalPaginas}";
+
+            btnVoltar.Enabled = paginaAtual > 1;
+            btnProximo.Enabled = paginaAtual < totalPaginas;
+        }
         private void CarregarClientes(string texto = "")
         {
             dataGridView1.Rows.Clear();
 
-            var clientes = string.IsNullOrWhiteSpace(texto) ? _clientesService.Listar() : _clientesService.Pesquisa(texto);
+            var clientes = string.IsNullOrWhiteSpace(texto) ? _clientesService.Listar(tamanhoPagina, paginaAtual) : _clientesService.Pesquisa(texto);
             foreach (var cliente in clientes)
             {
                 dataGridView1.Rows.Add(
@@ -51,6 +68,7 @@ namespace LojinhaDevoNada.Forms
 
                 );
             }
+            AtualizarPaginas();
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -80,6 +98,8 @@ namespace LojinhaDevoNada.Forms
 
         private void Pesquisa_TextChanged(object sender, EventArgs e)
         {
+            paginaAtual = 1;
+            dataGridView1.Rows.Clear();
             CarregarClientes(Pesquisa.Text);
         }
 
@@ -98,6 +118,24 @@ namespace LojinhaDevoNada.Forms
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnProximo_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual < TotalPaginas())
+            {
+                paginaAtual++;
+                CarregarClientes();
+            }
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual > 1)
+            {
+                paginaAtual--;
+                CarregarClientes();
+            }
         }
     }
 }

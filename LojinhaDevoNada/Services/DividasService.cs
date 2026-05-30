@@ -1,4 +1,5 @@
-﻿using LojinhaDevoNada.Data;
+
+using LojinhaDevoNada.Data;
 using LojinhaDevoNada.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -112,3 +113,4 @@ namespace LojinhaDevoNada.Services
         }
     }
 }
+

@@ -174,5 +174,10 @@ namespace LojinhaDevoNada.Services
                 .Where(d => d.Status == false)
                 .Sum(d => d.Valor);
         }
+
+        public int TotalClientes()
+        {
+            return _context.Clientes.Count();
+        }
     }
 }
