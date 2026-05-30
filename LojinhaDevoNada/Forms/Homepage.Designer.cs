@@ -32,7 +32,7 @@
             label1 = new Label();
             panel1 = new Panel();
             button3 = new Button();
-            button2 = new Button();
+            btnDivida = new Button();
             Pesquisa = new TextBox();
             clientesBindingSource = new BindingSource(components);
             clientesBindingSource1 = new BindingSource(components);
@@ -64,12 +64,13 @@
             // 
             panel1.BackColor = Color.Honeydew;
             panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
+            panel1.Controls.Add(btnDivida);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(-3, -3);
             panel1.Name = "panel1";
             panel1.Size = new Size(148, 460);
             panel1.TabIndex = 1;
+            panel1.Paint += panel1_Paint;
             // 
             // button3
             // 
@@ -83,14 +84,17 @@
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
-            // button2
+            // btnDivida
             // 
-            button2.Location = new Point(21, 82);
-            button2.Name = "button2";
-            button2.Size = new Size(86, 34);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnDivida.BackColor = SystemColors.ButtonFace;
+            btnDivida.FlatStyle = FlatStyle.Flat;
+            btnDivida.Location = new Point(15, 172);
+            btnDivida.Name = "btnDivida";
+            btnDivida.Size = new Size(110, 33);
+            btnDivida.TabIndex = 1;
+            btnDivida.Text = "Dívidas";
+            btnDivida.UseVisualStyleBackColor = false;
+            btnDivida.Click += btnDivida_Click;
             // 
             // Pesquisa
             // 
@@ -102,14 +106,6 @@
             Pesquisa.Size = new Size(598, 16);
             Pesquisa.TabIndex = 2;
             Pesquisa.TextChanged += Pesquisa_TextChanged;
-            // 
-            // clientesBindingSource
-            // 
-            clientesBindingSource.DataSource = typeof(Models.Clientes);
-            // 
-            // clientesBindingSource1
-            // 
-            clientesBindingSource1.DataSource = typeof(Models.Clientes);
             // 
             // dataGridView1
             // 
@@ -182,7 +178,7 @@
         private Panel panel1;
         private TextBox Pesquisa;
         private Button button3;
-        private Button button2;
+        private Button btnDivida;
         private BindingSource clientesBindingSource;
         private BindingSource clientesBindingSource1;
         private DataGridView dataGridView1;

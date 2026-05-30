@@ -13,17 +13,19 @@ namespace LojinhaDevoNada.Forms
     public partial class Homepage : Form
     {
         private readonly ClientesService _clientesService;
+        private readonly DividasService _dividasService;
 
-        private void Homepage_Load(object sender,EventArgs e)
+        private void Homepage_Load(object sender, EventArgs e)
         {
             CarregarClientes();
         }
 
 
-        public Homepage(ClientesService clientesService)
+        public Homepage(ClientesService clientesService, DividasService dividasService)
         {
             InitializeComponent();
             _clientesService = clientesService;
+            _dividasService = dividasService;
             CarregarClientes();
         }
 
@@ -81,5 +83,21 @@ namespace LojinhaDevoNada.Forms
             CarregarClientes(Pesquisa.Text);
         }
 
+        private void btnDivida_Click(object sender, EventArgs e)
+        {
+            var form = new FormDividas(
+                _dividasService,
+                _clientesService
+            );
+
+            form.Show();
+
+            this.Hide();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

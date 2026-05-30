@@ -13,10 +13,12 @@ namespace LojinhaDevoNada
     public partial class Form1 : Form
     {
         private readonly ClientesService _clientesService;
-        public Form1(ClientesService clientesService)
+        private readonly DividasService _dividasService;
+        public Form1(ClientesService clientesService, DividasService dividasService)
         {
             InitializeComponent();
             _clientesService = clientesService;
+            _dividasService = dividasService;
         }
 
         private void Label1_Click(object sender, EventArgs e)
@@ -26,7 +28,7 @@ namespace LojinhaDevoNada
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var home = new Homepage(_clientesService);
+            var home = new Homepage(_clientesService, _dividasService);
             home.Show();
             this.Hide();
 
