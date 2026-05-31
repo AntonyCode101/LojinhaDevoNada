@@ -45,13 +45,13 @@ namespace LojinhaDevoNada
             foreach (var divida in dividas)
             {
                 dataGridView1.Rows.Add(
-                    divida.Cliente?.Nome,
+                    divida.ClienteId,
                     divida.Valor,
                     divida.Status
                 );
             }
         }
-        
+
         private void FormDividas_Load(object sender, EventArgs e)
         {
             ListarDividas();
