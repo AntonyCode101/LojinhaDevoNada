@@ -29,13 +29,10 @@ namespace LojinhaDevoNada.Forms
                 {
                     Nome = txtNome.Text,
                     Cpf = mtxtCpf.Text.Replace(".", "").Replace("-", "").Replace(",", "").Trim(),
-                    Data_nasc = dtpNascimento.Value,
+                    Data_nasc = dtpNascimento.Value.Date,
                     Email = txtEmail.Text
                 };
-                var sucesso = _clientesService.Criar(
-                    cliente,
-                    out var erros
-                );
+                var sucesso = _clientesService.Criar(cliente,out var erros);
                 if (!sucesso)
                 {
                     lblErro.Text = erros.FirstOrDefault()?.ErrorMessage;
@@ -47,7 +44,7 @@ namespace LojinhaDevoNada.Forms
                 LimparCampos();
             }
             catch (Exception ex)
-            {
+            { 
                 lblErro.Text = ex.ToString();
                 lblErro.Visible = true;
             }

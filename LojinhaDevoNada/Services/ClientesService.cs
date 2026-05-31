@@ -34,88 +34,47 @@ namespace LojinhaDevoNada.Services
             out List<ValidationResult> erros)
         {
             var contexto = new ValidationContext(cliente);
-
             erros = new List<ValidationResult>();
 
-            var objetoValido = Validator.TryValidateObject(
-                cliente,
-                contexto,
-                erros,
-                true
-            );
+            var objetoValido = Validator.TryValidateObject(cliente,contexto,erros,true);
 
             bool cpfExiste = _context.Clientes.Any(c => c.Cpf == cliente.Cpf && c.Id != cliente.Id);
 
             if (cpfExiste)
             {
-                erros.Add(
-                    new ValidationResult(
-                        "*Já existe um cliente com esse CPF!*",
-                        new[] { "Cpf" }
-                    )
-                );
-
+                erros.Add(new ValidationResult("*Já existe um cliente com esse CPF!*",new[] { "Cpf" }));
                 objetoValido = false;
             }
 
             if (cliente.Idade < 18)
             {
-                erros.Add(
-                    new ValidationResult(
-                        "*O cliente deve ser maior de idade!*",
-                        new[] { "Idade" }
-                    )
-                );
-
+                erros.Add(new ValidationResult("*O cliente deve ser maior de idade!*",new[] { "Idade" }));
                 objetoValido = false;
             }
-
             return objetoValido;
         }
 
         public List<Clientes> Listar()
         {
-            return _context.Clientes
-                .Include(c => c.Dividas)
-                .OrderByDescending(c =>
-                    c.Dividas
-                        .Where(d => d.Status == false)
-                        .Sum(d => d.Valor))
-                .ToList();
+            return _context.Clientes.Include(c => c.Dividas).OrderByDescending(c => c.Dividas.Where(d => d.Status == false).Sum(d => d.Valor)).ToList();
         }
         public List<Clientes> Listar(
             int pageSize,
             int page)
         {
             int skip = (page - 1) * pageSize;
-
-            return _context.Clientes
-                .Include(c => c.Dividas)
-                .Skip(skip)
-                .Take(pageSize)
-                .ToList();
+            return _context.Clientes.Include(c => c.Dividas).Skip(skip).Take(pageSize).ToList();
         }
 
         public List<Clientes> Pesquisa(string texto)
         {
-            var resultado = _context.Clientes
-                .Include(c => c.Dividas)
-                .Where(c =>
-                    c.Nome.Contains(texto)
-                    || c.Email.Contains(texto)
-                    || c.Cpf.Contains(texto)
-                )
-                .OrderBy(c => c.Nome);
-
+            var resultado = _context.Clientes.Include(c => c.Dividas).Where(c => c.Nome.Contains(texto) || c.Email.Contains(texto) || c.Cpf.Contains(texto)).OrderBy(c => c.Nome);
             return resultado.ToList();
         }
 
         public Clientes Buscar(int id)
         {
-            var cliente = _context.Clientes
-                .Include(c => c.Dividas)
-                .FirstOrDefault(c => c.Id == id);
-
+            var cliente = _context.Clientes.Include(c => c.Dividas).FirstOrDefault(c => c.Id == id);
             return cliente;
         }
         public bool Atualizar(
@@ -129,12 +88,7 @@ namespace LojinhaDevoNada.Services
 
             if (cliente == null)
             {
-                erros.Add(
-                    new ValidationResult(
-                        "Cliente não encontrado"
-                    )
-                );
-
+                erros.Add(new ValidationResult("Cliente não encontrado"));
                 return false;
             }
 
@@ -170,14 +124,18 @@ namespace LojinhaDevoNada.Services
 
         public decimal TotalDividas(Clientes cliente)
         {
-            return cliente.Dividas
-                .Where(d => d.Status == false)
-                .Sum(d => d.Valor);
+            return cliente.Dividas.Where(d => d.Status == false).Sum(d => d.Valor);
         }
 
         public int TotalClientes()
         {
             return _context.Clientes.Count();
+        }
+
+        public Clientes BuscarPorCpf(string cpf)
+        {
+            return _context.Clientes.FirstOrDefault(c => c.Cpf == cpf);
+
         }
     }
 }

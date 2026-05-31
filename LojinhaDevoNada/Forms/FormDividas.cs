@@ -1,0 +1,165 @@
+﻿using LojinhaDevoNada.Services;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace LojinhaDevoNada.Forms
+{
+    public partial class FormDividas : Form
+    {
+        private readonly DividasService _dividasService;
+        private readonly ClientesService _clientesService;
+        private int paginaAtual = 1;
+        private int tamanhoPagina = 10;
+
+        public FormDividas(
+            DividasService dividasService,
+            ClientesService clientesService)
+        {
+            InitializeComponent();
+
+            _dividasService = dividasService;
+            _clientesService = clientesService;
+
+            CarregarDividas();
+        }
+
+        private void HomepageDividas_Load(object sender,EventArgs e)
+        {
+            CarregarDividas();
+        }
+        private int TotalPaginas()
+        {
+            int totalDividas = _dividasService.TotalRegistros();
+
+            return (int)Math.Ceiling(totalDividas / (double)tamanhoPagina);
+        }
+        private void AtualizarPaginas()
+        {
+            int totalPaginas = TotalPaginas();
+            lblPagina.Text = $"Página {paginaAtual} de {totalPaginas}";
+
+            btnAnterior.Enabled = paginaAtual > 1;
+            btnProximo.Enabled = paginaAtual < totalPaginas;
+        }
+
+
+        private void CarregarDividas(string texto = "")
+        {
+            dataGridView1.Rows.Clear();
+
+            var dividas = string.IsNullOrWhiteSpace(texto) ? _dividasService.Listar(tamanhoPagina, paginaAtual) : _dividasService.Pesquisa(texto);
+            foreach (var divida in dividas)
+            {
+                dataGridView1.Rows.Add(
+                    divida.Id,
+                    divida.Cliente.Nome,
+                    divida.Cliente.Idade,
+                    divida.Valor,
+                    divida.Status ? "Paga" : "Em Aberto",
+                    divida.Data_criacao.ToString("dd/MM/yyyy"),
+                    divida.Data_pagamento?.ToString("dd/MM/yyyy") ?? "-");
+            }
+            AtualizarPaginas();
+        }
+
+
+        private void btnDividaCadastrar_Click(object sender, EventArgs e)
+        {
+            var form = new CadastrarDividas(
+                _dividasService,
+                _clientesService
+            );
+
+            form.ShowDialog();
+
+            CarregarDividas();
+        }
+
+        private void txtPesquisar_TextChanged_1(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+
+            var dividas = _dividasService.Pesquisa(txtPesquisar.Text);
+
+            foreach (var divida in dividas)
+            {
+                dataGridView1.Rows.Add(
+                    divida.Id,
+                    divida.Cliente.Nome,
+                    divida.Cliente.Idade,
+                    divida.Valor,
+                    divida.Status ? "Paga" : "Em Aberto"
+                );
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0)
+                return;
+
+            int id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value);
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Editar")
+            {
+                var form = new AtualizarDivida(_dividasService, id );
+
+                form.ShowDialog();
+
+                CarregarDividas();
+            }
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Excluir")
+            {
+                var resultado = MessageBox.Show(
+                    "Você realmente deseja deletar esta dívida?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (resultado == DialogResult.Yes)
+                {
+                    _dividasService.Deletar(id);
+                    CarregarDividas();
+                }
+            }
+        }
+
+        private void btnVoltar_Click_1(object sender, EventArgs e)
+        {
+            var home = new Homepage(
+               _clientesService,
+               _dividasService
+           );
+
+            home.Show();
+
+            Close();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual > 1)
+            {
+                paginaAtual--;
+                CarregarDividas();
+            }
+        }
+
+        private void btnProximo_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual < TotalPaginas())
+            {
+                paginaAtual++;
+                CarregarDividas();
+            }
+        }
+    }
+}
