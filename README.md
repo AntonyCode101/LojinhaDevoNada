@@ -31,8 +31,41 @@
 - **PostgreSQL**
 - **Git**
 
+
+<h3>▶ Run Project</h3>
+
+**Clone o repositório**
+
+```bash
+
+  git clone https://github.com/AntonyCode101/LojinhaDevoNada.git
+
+```
+
+**Configure a conexão com o banco de dados**
+
+[Como configurar a conexão](#configuração-do-banco-de-dados)
+
+**Entre na pasta do projeto**
+
+```bash
+
+  cd LojinhaDevoNada
+
+```
+
+**Execute o projeto**
+
+```bash
+
+  dotnet run
+
+```
+
+## Configuração do Banco de dados
+
 <details>
-<summary><h3> ⚙ Configuração do Banco de dados</h3></summary>
+<summary>⚙ Configuração</summary>
 
 > Instale o [PostgreSQL](https://www.postgresql.org/download/)
 
