@@ -19,7 +19,7 @@ namespace LojinhaDevoNada
                 "Port=5432;" +
                 "Database=db_devonada;" +
                 "Username=postgres;" +
-                "Password=40028922"
+                "Password=1234"
             );
 
             var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>

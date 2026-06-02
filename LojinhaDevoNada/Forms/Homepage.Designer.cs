@@ -113,7 +113,7 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.BackgroundColor = Color.DarkOliveGreen;
+            dataGridView1.BackgroundColor = Color.OliveDrab;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Cpf, Email, Editar, Excluir });
             dataGridView1.GridColor = Color.DarkGreen;

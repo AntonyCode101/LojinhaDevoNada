@@ -48,7 +48,7 @@
             // txtNome
             // 
             txtNome.BorderStyle = BorderStyle.None;
-            txtNome.Location = new Point(206, 127);
+            txtNome.Location = new Point(205, 84);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(389, 16);
             txtNome.TabIndex = 1;
@@ -56,10 +56,11 @@
             // txtEmail
             // 
             txtEmail.BorderStyle = BorderStyle.None;
-            txtEmail.Location = new Point(206, 84);
+            txtEmail.Location = new Point(205, 127);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(389, 16);
             txtEmail.TabIndex = 3;
+            txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // mtxtCpf
             // 

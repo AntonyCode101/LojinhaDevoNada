@@ -28,7 +28,7 @@ namespace LojinhaDevoNada.Forms
             CarregarDividas();
         }
 
-        private void HomepageDividas_Load(object sender,EventArgs e)
+        private void HomepageDividas_Load(object sender, EventArgs e)
         {
             CarregarDividas();
         }
@@ -108,7 +108,7 @@ namespace LojinhaDevoNada.Forms
 
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Editar")
             {
-                var form = new AtualizarDivida(_dividasService, id );
+                var form = new AtualizarDivida(_dividasService, id);
 
                 form.ShowDialog();
 
@@ -160,6 +160,31 @@ namespace LojinhaDevoNada.Forms
                 paginaAtual++;
                 CarregarDividas();
             }
+        }
+
+        private void lblErro_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSucess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

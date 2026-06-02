@@ -29,14 +29,6 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            btnDividaCadastrar = new Button();
-            lblErro = new Label();
-            lblSucess = new Label();
-            txtPesquisar = new TextBox();
-            btnVoltar = new Button();
-            btnAnterior = new Button();
-            btnProximo = new Button();
-            lblPagina = new Label();
             id = new DataGridViewTextBoxColumn();
             Nome = new DataGridViewTextBoxColumn();
             Idade = new DataGridViewTextBoxColumn();
@@ -46,93 +38,32 @@
             DataPagamento = new DataGridViewTextBoxColumn();
             Editar = new DataGridViewButtonColumn();
             Excluir = new DataGridViewButtonColumn();
+            btnDividaCadastrar = new Button();
+            lblErro = new Label();
+            lblSucess = new Label();
+            txtPesquisar = new TextBox();
+            btnVoltar = new Button();
+            btnAnterior = new Button();
+            btnProximo = new Button();
+            lblPagina = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = Color.OliveDrab;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, Nome, Idade, Total, Status, DataCriacao, DataPagamento, Editar, Excluir });
-            dataGridView1.Location = new Point(12, 85);
+            dataGridView1.Location = new Point(22, 102);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(787, 150);
+            dataGridView1.Size = new Size(749, 279);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // btnDividaCadastrar
-            // 
-            btnDividaCadastrar.Location = new Point(176, 344);
-            btnDividaCadastrar.Name = "btnDividaCadastrar";
-            btnDividaCadastrar.Size = new Size(75, 23);
-            btnDividaCadastrar.TabIndex = 1;
-            btnDividaCadastrar.Text = "button1";
-            btnDividaCadastrar.UseVisualStyleBackColor = true;
-            btnDividaCadastrar.Click += btnDividaCadastrar_Click;
-            // 
-            // lblErro
-            // 
-            lblErro.AutoSize = true;
-            lblErro.Location = new Point(329, 354);
-            lblErro.Name = "lblErro";
-            lblErro.Size = new Size(38, 15);
-            lblErro.TabIndex = 2;
-            lblErro.Text = "label1";
-            // 
-            // lblSucess
-            // 
-            lblSucess.AutoSize = true;
-            lblSucess.Location = new Point(266, 283);
-            lblSucess.Name = "lblSucess";
-            lblSucess.Size = new Size(38, 15);
-            lblSucess.TabIndex = 3;
-            lblSucess.Text = "label1";
-            // 
-            // txtPesquisar
-            // 
-            txtPesquisar.Location = new Point(240, 42);
-            txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.Size = new Size(100, 23);
-            txtPesquisar.TabIndex = 4;
-            txtPesquisar.TextChanged += txtPesquisar_TextChanged_1;
-            // 
-            // btnVoltar
-            // 
-            btnVoltar.Location = new Point(52, 320);
-            btnVoltar.Name = "btnVoltar";
-            btnVoltar.Size = new Size(75, 23);
-            btnVoltar.TabIndex = 5;
-            btnVoltar.Text = "Voltar";
-            btnVoltar.UseVisualStyleBackColor = true;
-            btnVoltar.Click += btnVoltar_Click_1;
-            // 
-            // btnAnterior
-            // 
-            btnAnterior.Location = new Point(199, 402);
-            btnAnterior.Name = "btnAnterior";
-            btnAnterior.Size = new Size(75, 23);
-            btnAnterior.TabIndex = 6;
-            btnAnterior.Text = "Voltar";
-            btnAnterior.UseVisualStyleBackColor = true;
-            btnAnterior.Click += btnAnterior_Click;
-            // 
-            // btnProximo
-            // 
-            btnProximo.Location = new Point(428, 414);
-            btnProximo.Name = "btnProximo";
-            btnProximo.Size = new Size(75, 23);
-            btnProximo.TabIndex = 7;
-            btnProximo.Text = "Próximo";
-            btnProximo.UseVisualStyleBackColor = true;
-            btnProximo.Click += btnProximo_Click;
-            // 
-            // lblPagina
-            // 
-            lblPagina.AutoSize = true;
-            lblPagina.Location = new Point(302, 408);
-            lblPagina.Name = "lblPagina";
-            lblPagina.Size = new Size(77, 15);
-            lblPagina.TabIndex = 8;
-            lblPagina.Text = "Página 1 de 1";
             // 
             // id
             // 
@@ -175,6 +106,7 @@
             Editar.Name = "Editar";
             Editar.Text = "Editar";
             Editar.ToolTipText = "Editar";
+            Editar.UseColumnTextForButtonValue = true;
             // 
             // Excluir
             // 
@@ -182,24 +114,156 @@
             Excluir.Name = "Excluir";
             Excluir.Text = "Excluir";
             Excluir.ToolTipText = "Excluir";
+            Excluir.UseColumnTextForButtonValue = true;
+            // 
+            // btnDividaCadastrar
+            // 
+            btnDividaCadastrar.BackColor = SystemColors.ButtonFace;
+            btnDividaCadastrar.FlatStyle = FlatStyle.Flat;
+            btnDividaCadastrar.Location = new Point(682, 410);
+            btnDividaCadastrar.Name = "btnDividaCadastrar";
+            btnDividaCadastrar.Size = new Size(106, 32);
+            btnDividaCadastrar.TabIndex = 1;
+            btnDividaCadastrar.Text = "Cadastrar Dívida";
+            btnDividaCadastrar.UseVisualStyleBackColor = false;
+            btnDividaCadastrar.Click += btnDividaCadastrar_Click;
+            // 
+            // lblErro
+            // 
+            lblErro.AutoSize = true;
+            lblErro.BackColor = Color.DarkOliveGreen;
+            lblErro.ForeColor = Color.DarkOliveGreen;
+            lblErro.Location = new Point(735, 419);
+            lblErro.Name = "lblErro";
+            lblErro.Size = new Size(36, 15);
+            lblErro.TabIndex = 2;
+            lblErro.Text = "ERRO";
+            lblErro.Click += lblErro_Click;
+            // 
+            // lblSucess
+            // 
+            lblSucess.AutoSize = true;
+            lblSucess.BackColor = Color.DarkOliveGreen;
+            lblSucess.ForeColor = Color.DarkOliveGreen;
+            lblSucess.Location = new Point(637, 415);
+            lblSucess.Name = "lblSucess";
+            lblSucess.Size = new Size(49, 15);
+            lblSucess.TabIndex = 3;
+            lblSucess.Text = "Sucesso";
+            lblSucess.Click += lblSucess_Click;
+            // 
+            // txtPesquisar
+            // 
+            txtPesquisar.Location = new Point(22, 73);
+            txtPesquisar.Name = "txtPesquisar";
+            txtPesquisar.PlaceholderText = "Buscar";
+            txtPesquisar.Size = new Size(749, 23);
+            txtPesquisar.TabIndex = 4;
+            txtPesquisar.TextChanged += txtPesquisar_TextChanged_1;
+            // 
+            // btnVoltar
+            // 
+            btnVoltar.BackColor = SystemColors.ButtonFace;
+            btnVoltar.FlatStyle = FlatStyle.Flat;
+            btnVoltar.ForeColor = SystemColors.ControlText;
+            btnVoltar.Location = new Point(12, 415);
+            btnVoltar.Name = "btnVoltar";
+            btnVoltar.Size = new Size(106, 29);
+            btnVoltar.TabIndex = 5;
+            btnVoltar.Text = "Voltar";
+            btnVoltar.UseVisualStyleBackColor = false;
+            btnVoltar.Click += btnVoltar_Click_1;
+            // 
+            // btnAnterior
+            // 
+            btnAnterior.BackColor = SystemColors.ButtonFace;
+            btnAnterior.FlatStyle = FlatStyle.Flat;
+            btnAnterior.Location = new Point(292, 415);
+            btnAnterior.Name = "btnAnterior";
+            btnAnterior.Size = new Size(75, 23);
+            btnAnterior.TabIndex = 6;
+            btnAnterior.Text = "Voltar";
+            btnAnterior.UseVisualStyleBackColor = false;
+            btnAnterior.Click += btnAnterior_Click;
+            // 
+            // btnProximo
+            // 
+            btnProximo.BackColor = SystemColors.ButtonFace;
+            btnProximo.FlatStyle = FlatStyle.Flat;
+            btnProximo.Location = new Point(460, 415);
+            btnProximo.Name = "btnProximo";
+            btnProximo.Size = new Size(75, 23);
+            btnProximo.TabIndex = 7;
+            btnProximo.Text = "Próximo";
+            btnProximo.UseVisualStyleBackColor = false;
+            btnProximo.Click += btnProximo_Click;
+            // 
+            // lblPagina
+            // 
+            lblPagina.AutoSize = true;
+            lblPagina.Location = new Point(377, 419);
+            lblPagina.Name = "lblPagina";
+            lblPagina.Size = new Size(77, 15);
+            lblPagina.TabIndex = 8;
+            lblPagina.Text = "Página 1 de 1";
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.Transparent;
+            label1.FlatStyle = FlatStyle.Flat;
+            label1.Font = new Font("Cambria", 21.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(202, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(398, 50);
+            label1.TabIndex = 19;
+            label1.Text = "Dívidas";
+            label1.TextAlign = ContentAlignment.TopCenter;
+            label1.Click += label1_Click_1;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(txtPesquisar);
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(802, 96);
+            panel1.TabIndex = 20;
+            panel1.Paint += panel1_Paint;
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.DarkOliveGreen;
+            label6.Font = new Font("Cambria", 11.25F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(1, 9);
+            label6.Name = "label6";
+            label6.Size = new Size(100, 23);
+            label6.TabIndex = 18;
+            label6.Text = "DevoNada";
+            label6.TextAlign = ContentAlignment.TopCenter;
             // 
             // FormDividas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.DarkOliveGreen;
             ClientSize = new Size(800, 450);
+            Controls.Add(panel1);
             Controls.Add(lblPagina);
+            Controls.Add(btnDividaCadastrar);
+            Controls.Add(btnVoltar);
             Controls.Add(btnProximo);
             Controls.Add(btnAnterior);
-            Controls.Add(btnVoltar);
-            Controls.Add(txtPesquisar);
             Controls.Add(lblSucess);
             Controls.Add(lblErro);
-            Controls.Add(btnDividaCadastrar);
             Controls.Add(dataGridView1);
             Name = "FormDividas";
             Text = "FormDividas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,6 +279,9 @@
         private Button btnAnterior;
         private Button btnProximo;
         private Label lblPagina;
+        private Label label1;
+        private Panel panel1;
+        private Label label6;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn Nome;
         private DataGridViewTextBoxColumn Idade;
