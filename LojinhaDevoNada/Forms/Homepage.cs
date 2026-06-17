@@ -39,25 +39,26 @@ namespace LojinhaDevoNada.Forms
             CarregarClientes();
         }
 
-        private int TotalPaginas()
+        private int TotalPaginas(string texto = "")
         {
-            int totalClientes = _clientesService.TotalClientes();
-            return (int)Math.Ceiling(totalClientes / (double)tamanhoPagina);
-        }
+            int totalDividas = _dividasService.TotalRegistros(texto);
 
-        private void AtualizarPaginas()
+            return Math.Max(1, (int)Math.Ceiling(totalDividas / (double)tamanhoPagina));
+        }
+        private void AtualizarPaginas(string texto = "")
         {
-            int totalPaginas = TotalPaginas();
+            int totalPaginas = TotalPaginas(texto);
             lblPagina.Text = $"Página {paginaAtual} de {totalPaginas}";
 
             btnVoltar.Enabled = paginaAtual > 1;
             btnProximo.Enabled = paginaAtual < totalPaginas;
         }
+
         private void CarregarClientes(string texto = "")
         {
             dataGridView1.Rows.Clear();
 
-            var clientes = string.IsNullOrWhiteSpace(texto) ? _clientesService.Listar(tamanhoPagina, paginaAtual) : _clientesService.Pesquisa(texto);
+            var clientes = _clientesService.Pesquisa(texto, tamanhoPagina, paginaAtual);
             foreach (var cliente in clientes)
             {
                 dataGridView1.Rows.Add(
@@ -68,7 +69,7 @@ namespace LojinhaDevoNada.Forms
 
                 );
             }
-            AtualizarPaginas();
+            AtualizarPaginas(texto);
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -122,10 +123,10 @@ namespace LojinhaDevoNada.Forms
 
         private void btnProximo_Click(object sender, EventArgs e)
         {
-            if (paginaAtual < TotalPaginas())
+            if (paginaAtual < TotalPaginas(Pesquisa.Text))
             {
                 paginaAtual++;
-                CarregarClientes();
+                CarregarClientes(Pesquisa.Text);
             }
         }
 
@@ -134,7 +135,7 @@ namespace LojinhaDevoNada.Forms
             if (paginaAtual > 1)
             {
                 paginaAtual--;
-                CarregarClientes();
+                CarregarClientes(Pesquisa.Text);
             }
         }
 

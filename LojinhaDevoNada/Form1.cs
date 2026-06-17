@@ -14,9 +14,11 @@ namespace LojinhaDevoNada
     {
         private readonly ClientesService _clientesService;
         private readonly DividasService _dividasService;
+
         public Form1(ClientesService clientesService, DividasService dividasService)
         {
             InitializeComponent();
+
             _clientesService = clientesService;
             _dividasService = dividasService;
         }

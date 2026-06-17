@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LojinhaDevoNada.Data;
+﻿using LojinhaDevoNada.Data;
 using LojinhaDevoNada.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing.Printing;
 
 namespace LojinhaDevoNada.Services
 {
@@ -54,22 +55,34 @@ namespace LojinhaDevoNada.Services
             return objetoValido;
         }
 
-        public List<Clientes> Listar()
+        public List<Clientes> Pesquisa(string texto = "", int pageSize = 0, int page = 1)
         {
-            return _context.Clientes.Include(c => c.Dividas).OrderByDescending(c => c.Dividas.Where(d => d.Status == false).Sum(d => d.Valor)).ToList();
-        }
-        public List<Clientes> Listar(
-            int pageSize,
-            int page)
-        {
-            int skip = (page - 1) * pageSize;
-            return _context.Clientes.Include(c => c.Dividas).Skip(skip).Take(pageSize).ToList();
-        }
+            var query = _context.Clientes
+                .Include(c => c.Dividas)
+                .AsQueryable();
 
-        public List<Clientes> Pesquisa(string texto)
-        {
-            var resultado = _context.Clientes.Include(c => c.Dividas).Where(c => c.Nome.Contains(texto) || c.Email.Contains(texto) || c.Cpf.Contains(texto)).OrderBy(c => c.Nome);
-            return resultado.ToList();
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                texto = texto.Trim().ToLower();
+
+                query = query.Where(c =>
+                    c.Nome.ToLower().Contains(texto) ||
+                    c.Email.ToLower().Contains(texto) ||
+                    c.Cpf.Contains(texto));
+            }
+
+            query = query.OrderBy(c => c.Nome);
+
+            if (pageSize > 0)
+            {
+                int skip = (page - 1) * pageSize;
+
+                query = query
+                    .Skip(skip)
+                    .Take(pageSize);
+            }
+
+            return query.ToList();
         }
 
         public Clientes Buscar(int id)
@@ -136,6 +149,18 @@ namespace LojinhaDevoNada.Services
         {
             return _context.Clientes.FirstOrDefault(c => c.Cpf == cpf);
 
+        }
+
+        public int TotalRegistros(string texto = "")
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                return _context.Dividas.Count();
+            }
+
+            texto = texto.Trim().ToLower();
+
+            return _context.Dividas.Include(d => d.Cliente).Count(d => d.Cliente.Nome.ToLower().Contains(texto) || d.Cliente.Cpf.Contains(texto));
         }
     }
 }

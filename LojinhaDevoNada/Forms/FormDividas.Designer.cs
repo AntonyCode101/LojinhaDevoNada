@@ -49,6 +49,8 @@
             label1 = new Label();
             panel1 = new Panel();
             label6 = new Label();
+            comboBox1 = new ComboBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -154,10 +156,10 @@
             // 
             // txtPesquisar
             // 
-            txtPesquisar.Location = new Point(22, 73);
+            txtPesquisar.Location = new Point(22, 62);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PlaceholderText = "Buscar";
-            txtPesquisar.Size = new Size(749, 23);
+            txtPesquisar.Size = new Size(565, 23);
             txtPesquisar.TabIndex = 4;
             txtPesquisar.TextChanged += txtPesquisar_TextChanged_1;
             // 
@@ -223,12 +225,12 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(txtPesquisar);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(802, 96);
+            panel1.Size = new Size(802, 47);
             panel1.TabIndex = 20;
             panel1.Paint += panel1_Paint;
             // 
@@ -244,16 +246,43 @@
             label6.Text = "DevoNada";
             label6.TextAlign = ContentAlignment.TopCenter;
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Todos", "Em Aberto", "Pagas" });
+            comboBox1.Location = new Point(650, 62);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 20;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.FlatStyle = FlatStyle.Flat;
+            label2.Font = new Font("Cambria", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(593, 63);
+            label2.Name = "label2";
+            label2.Size = new Size(61, 17);
+            label2.TabIndex = 21;
+            label2.Text = "Filtros: ";
+            label2.Click += label2_Click;
+            // 
             // FormDividas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkOliveGreen;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
+            Controls.Add(label2);
             Controls.Add(panel1);
             Controls.Add(lblPagina);
             Controls.Add(btnDividaCadastrar);
             Controls.Add(btnVoltar);
+            Controls.Add(txtPesquisar);
             Controls.Add(btnProximo);
             Controls.Add(btnAnterior);
             Controls.Add(lblSucess);
@@ -263,7 +292,6 @@
             Text = "FormDividas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -291,5 +319,7 @@
         private DataGridViewTextBoxColumn DataPagamento;
         private DataGridViewButtonColumn Editar;
         private DataGridViewButtonColumn Excluir;
+        private Label label2;
+        private ComboBox comboBox1;
     }
 }

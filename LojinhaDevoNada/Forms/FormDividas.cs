@@ -25,6 +25,8 @@ namespace LojinhaDevoNada.Forms
             _dividasService = dividasService;
             _clientesService = clientesService;
 
+            comboBox1.SelectedIndex = 0;
+
             CarregarDividas();
         }
 
@@ -32,16 +34,26 @@ namespace LojinhaDevoNada.Forms
         {
             CarregarDividas();
         }
-        private int TotalPaginas()
+        private int TotalPaginas(string texto = "")
         {
-            int totalDividas = _dividasService.TotalRegistros();
+            string filtro = comboBox1.Text;
 
-            return (int)Math.Ceiling(totalDividas / (double)tamanhoPagina);
+            int totalDividas =
+                _dividasService.TotalRegistros(texto, filtro);
+
+            return Math.Max(
+                1,
+                (int)Math.Ceiling(
+                    totalDividas / (double)tamanhoPagina
+                )
+            );
         }
-        private void AtualizarPaginas()
+        private void AtualizarPaginas(string texto = "")
         {
-            int totalPaginas = TotalPaginas();
-            lblPagina.Text = $"Página {paginaAtual} de {totalPaginas}";
+            int totalPaginas = TotalPaginas(texto);
+
+            lblPagina.Text =
+                $"Página {paginaAtual} de {totalPaginas}";
 
             btnAnterior.Enabled = paginaAtual > 1;
             btnProximo.Enabled = paginaAtual < totalPaginas;
@@ -52,7 +64,15 @@ namespace LojinhaDevoNada.Forms
         {
             dataGridView1.Rows.Clear();
 
-            var dividas = string.IsNullOrWhiteSpace(texto) ? _dividasService.Listar(tamanhoPagina, paginaAtual) : _dividasService.Pesquisa(texto);
+            string filtro = comboBox1.Text;
+
+            if (string.IsNullOrWhiteSpace(filtro))
+            {
+                filtro = "Todos";
+            }
+
+            var dividas = _dividasService.Pesquisa(texto, comboBox1.Text, tamanhoPagina, paginaAtual);
+
             foreach (var divida in dividas)
             {
                 dataGridView1.Rows.Add(
@@ -62,9 +82,11 @@ namespace LojinhaDevoNada.Forms
                     divida.Valor,
                     divida.Status ? "Paga" : "Em Aberto",
                     divida.Data_criacao.ToString("dd/MM/yyyy"),
-                    divida.Data_pagamento?.ToString("dd/MM/yyyy") ?? "-");
+                    divida.Data_pagamento?.ToString("dd/MM/yyyy") ?? "-"
+                );
             }
-            AtualizarPaginas();
+
+            AtualizarPaginas(texto);
         }
 
 
@@ -83,19 +105,8 @@ namespace LojinhaDevoNada.Forms
         private void txtPesquisar_TextChanged_1(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-
-            var dividas = _dividasService.Pesquisa(txtPesquisar.Text);
-
-            foreach (var divida in dividas)
-            {
-                dataGridView1.Rows.Add(
-                    divida.Id,
-                    divida.Cliente.Nome,
-                    divida.Cliente.Idade,
-                    divida.Valor,
-                    divida.Status ? "Paga" : "Em Aberto"
-                );
-            }
+            paginaAtual = 1;
+            CarregarDividas(txtPesquisar.Text);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -149,16 +160,16 @@ namespace LojinhaDevoNada.Forms
             if (paginaAtual > 1)
             {
                 paginaAtual--;
-                CarregarDividas();
+                CarregarDividas(txtPesquisar.Text);
             }
         }
 
         private void btnProximo_Click(object sender, EventArgs e)
         {
-            if (paginaAtual < TotalPaginas())
+            if (paginaAtual < TotalPaginas(txtPesquisar.Text))
             {
                 paginaAtual++;
-                CarregarDividas();
+                CarregarDividas(txtPesquisar.Text);
             }
         }
 
@@ -185,6 +196,17 @@ namespace LojinhaDevoNada.Forms
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            paginaAtual = 1;
+            CarregarDividas(txtPesquisar.Text);
         }
     }
 }

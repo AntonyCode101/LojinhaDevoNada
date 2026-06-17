@@ -117,6 +117,8 @@ namespace LojinhaDevoNada.Forms
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             LimparCampos();
+            lblSucess.Visible = false;
+            lblErro.Visible = false;
         }
 
         private void btnVoltar_Click_1(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace LojinhaDevoNada.Services
 
             if (divida.Valor <= 0)
             {
-                erros.Add(new ValidationResult("O valor da dívida deve ser maior que zero.*"));
+                erros.Add(new ValidationResult("*O valor da dívida deve ser maior que zero.*"));
                 return false;
             }
 
@@ -33,10 +33,10 @@ namespace LojinhaDevoNada.Services
                 return false;
             }
 
-            bool possuiDivida = _context.Dividas.Any(d => d.ClienteId == divida.ClienteId);
+            bool possuiDivida = _context.Dividas.Any(d => d.ClienteId == divida.ClienteId && d.Status == false);
             if (possuiDivida)
             {
-                erros.Add(new ValidationResult("*Este cliente já possui uma dívida cadastrada.*"));
+                erros.Add(new ValidationResult("*Este cliente já possui uma dívida em aberto.*"));
 
                 return false;
             }
@@ -51,20 +51,36 @@ namespace LojinhaDevoNada.Services
             return true;
         }
 
-        public List<Dividas> Listar()
+        public List<Dividas> Pesquisa(string texto = "", string filtro = "Todos", int pageSize = 0, int page = 1)
         {
-            return _context.Dividas.Include(d => d.Cliente).OrderBy(d => d.Cliente.Nome).ToList();
-        }
+            var query = _context.Dividas.Include(d => d.Cliente).AsQueryable();
 
-        public List<Dividas> Listar(int pageSize,int page)
-        {
-            int skip = (page - 1) * pageSize;
-            return _context.Dividas.Include(d => d.Cliente).OrderBy(d => d.Cliente.Nome).Skip(skip).Take(pageSize).ToList();
-        }
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                texto = texto.Trim().ToLower();
 
-        public List<Dividas> Pesquisa(string texto)
-        {
-            return _context.Dividas.Include(d => d.Cliente).Where(d => d.Cliente.Nome.Contains(texto) || d.Cliente.Cpf.Contains(texto)).OrderBy(d => d.Cliente.Nome).ToList();
+                query = query.Where(d => d.Cliente.Nome.ToLower().Contains(texto) || d.Cliente.Cpf.Contains(texto));
+            }
+
+            if (filtro == "Em Aberto")
+            {
+                query = query.Where(d => !d.Status);
+            }
+            else if (filtro == "Pagas")
+            {
+                query = query.Where(d => d.Status);
+            }
+
+            query = query.OrderByDescending(d => d.Valor);
+
+            if (pageSize > 0)
+            {
+                int skip = (page - 1) * pageSize;
+
+                query = query.Skip(skip).Take(pageSize);
+            }
+
+            return query.ToList();
         }
 
         public Dividas Buscar(int id)
@@ -128,19 +144,73 @@ namespace LojinhaDevoNada.Services
             return true;
         }
 
+        public List<Dividas> Filtrar(string texto, string status, int pageSize, int page)
+        {
+            texto = texto?.Trim().ToLower() ?? "";
+
+            int skip = (page - 1) * pageSize;
+
+            var query = _context.Dividas
+                .Include(d => d.Cliente)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                query = query.Where(d =>
+                    d.Cliente.Nome.ToLower().Contains(texto) ||
+                    d.Cliente.Cpf.Contains(texto));
+            }
+
+            if (status == "Em Aberto")
+            {
+                query = query.Where(d => !d.Status);
+            }
+            else if (status == "Pagas")
+            {
+                query = query.Where(d => d.Status);
+            }
+
+            return query
+                .OrderByDescending(d => d.Valor).Skip(skip).Take(pageSize).ToList();
+        }
+
         public decimal TotalDividas(Clientes cliente)
         {
             return cliente.Dividas.Where(d => !d.Status).Sum(d => d.Valor);
         }
 
-        public int TotalRegistros(string texto = "")
+        public int TotalRegistros(string texto = "", string filtro = "Todos")
         {
-            if (string.IsNullOrWhiteSpace(texto))
+            var query = _context.Dividas
+                .Include(d => d.Cliente)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(texto))
             {
-                return _context.Dividas.Count();
+                texto = texto.Trim().ToLower();
+
+                query = query.Where(d =>
+                    d.Cliente.Nome.ToLower().Contains(texto) ||
+                    d.Cliente.Cpf.Contains(texto));
             }
 
-            return _context.Dividas.Include(d => d.Cliente).Count(d => d.Cliente.Nome.Contains(texto) || d.Cliente.Cpf.Contains(texto));
+            if (filtro == "Em Aberto")
+            {
+                query = query.Where(d => !d.Status);
+            }
+            else if (filtro == "Pagas")
+            {
+                query = query.Where(d => d.Status);
+            }
+
+            return query.Count();
+        }
+
+        public int totalRegistrosPesquisa(string texto)
+        {
+            texto = texto.Trim().ToLower();
+
+            return _context.Dividas.Include(d => d.Cliente).Count(d => d.Cliente.Nome.ToLower().Contains(texto) || d.Cliente.Cpf.Contains(texto));
         }
     }
 }
